@@ -1,30 +1,35 @@
-package com.project.roombook.model;
-
-import jakarta.persistence.*;
+package com.project.roombook.dto;
 
 import java.util.Date;
 
-@Entity(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
     private Long id;
-    @Column(unique = true)
     private String registration;
     private String name;
     private String role;
     private String email;
-    private String password;
     private Date createdAt;
     private Date updatedAt;
 
-    public void setId(Long id) {
+    public UserDTO() {
+    }
+
+    public UserDTO(Long id, String registration, String name, String role, String email, Date createdAt, Date updatedAt) {
         this.id = id;
+        this.registration = registration;
+        this.name = name;
+        this.role = role;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRegistration() {
@@ -57,14 +62,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Date getCreatedAt() {
