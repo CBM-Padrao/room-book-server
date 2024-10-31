@@ -2,7 +2,7 @@ package com.project.roombook.dto;
 
 import java.util.Date;
 
-public class UserDTO {
+public class UserResponseDTO {
     private Long id;
     private String registration;
     private String name;
@@ -11,10 +11,10 @@ public class UserDTO {
     private Date createdAt;
     private Date updatedAt;
 
-    public UserDTO() {
+    public UserResponseDTO() {
     }
 
-    public UserDTO(Long id, String registration, String name, String role, String email, Date createdAt, Date updatedAt) {
+    public UserResponseDTO(Long id, String registration, String name, String role, String email, Date createdAt, Date updatedAt) {
         this.id = id;
         this.registration = registration;
         this.name = name;

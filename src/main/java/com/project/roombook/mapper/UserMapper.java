@@ -1,7 +1,7 @@
 package com.project.roombook.mapper;
 
 import com.project.roombook.dto.UserCreateDTO;
-import com.project.roombook.dto.UserDTO;
+import com.project.roombook.dto.UserResponseDTO;
 import com.project.roombook.entity.User;
 
 public class UserMapper {
@@ -15,8 +15,8 @@ public class UserMapper {
         return user;
     }
 
-    public static UserDTO toDTO(User user) {
-        return new UserDTO(
+    public static UserResponseDTO toResponseDTO(User user) {
+        return new UserResponseDTO(
                 user.getId(),
                 user.getRegistration(),
                 user.getName(),
