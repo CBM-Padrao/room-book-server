@@ -28,6 +28,10 @@ public class UserService {
             throw new UserAlreadyExistsException("A matrícula já está em uso. Por favor, escolha outra.");
         }
 
+        if (userRepository.existsByEmail(userCreateDTO.getEmail())) {
+            throw new UserAlreadyExistsException("O e-mail já está em uso. Por favor, informe outro.");
+        }
+
         User user = UserMapper.toEntity(userCreateDTO);
         String encodedPassword = PasswordUtils.hashPassword(userCreateDTO.getPassword());
         user.setPassword(encodedPassword);

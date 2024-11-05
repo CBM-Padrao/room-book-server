@@ -1,6 +1,5 @@
 package com.project.roombook.dto;
 
-import java.util.Date;
 
 public class UserCreateDTO {
     private String registration;

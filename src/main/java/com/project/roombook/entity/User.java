@@ -14,6 +14,7 @@ public class User {
     private String registration;
     private String name;
     private String role;
+    @Column(unique = true)
     private String email;
     private String password;
     private Date createdAt;
