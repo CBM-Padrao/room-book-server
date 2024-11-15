@@ -31,18 +31,14 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Validated AuthenticationDTO data) {
         try {
-            
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.Registration(), data.Password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
-        
-    } catch (Exception e) {
-        // Trata falhas de autenticação, retornando uma mensagem de erro
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação: " + e.getMessage());
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch (Exception e) {
+            // Trata falhas de autenticação, retornando uma mensagem de erro
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação: " + e.getMessage());
+        }
     }
 }
-
-}
-
