@@ -11,9 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByRegistration(String registration);
-    static UserDetails findByRegistration(String registration) {
-        throw new UnsupportedOperationException("Unimplemented method 'findByRegistration'");
-    }
+    Optional<UserDetails> findByRegistration(String registration);
 
     boolean existsByEmail(String email);
     boolean existsByEmailAndIdNot(String email, Long id);
