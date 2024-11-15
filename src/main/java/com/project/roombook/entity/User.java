@@ -2,17 +2,24 @@ package com.project.roombook.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name = "users")
-public class User {
+
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String registration;
-    private String name;
+    private String name;  
     private String role;
     private String email;
     private String password;
@@ -35,20 +42,20 @@ public class User {
         this.registration = registration;
     }
 
+    public String getRole(){
+        return role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getEmail() {
@@ -81,5 +88,19 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    //User details
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == "ADMIN") return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("GESTOR"), new SimpleGrantedAuthority("FUNCIONARIO"));
+        else return List.of( new SimpleGrantedAuthority("GESTOR"), new SimpleGrantedAuthority("FUNCIONARIO"));
+    }
+
+    @Override
+    public String getUsername() {
+        return name;
+        
     }
 }

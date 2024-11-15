@@ -1,0 +1,7 @@
+spring.application.name=roombook
+spring.datasource.url = jdbc:postgresql://localhost:5432/roombook
+spring.datasource.username = postgres
+spring.datasource.password = 123
+
+spring.jpa.hibernate.ddl-auto=update
+api.secret.token.secret=${JWT_SECRET:my-secret-key}
