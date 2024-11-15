@@ -1,34 +1,32 @@
 package com.project.roombook.dto;
 
-
 import jakarta.validation.constraints.NotNull;
 
-public class UserCreateDTO {
-    @NotNull(message = "A matrícula do usuário não pode ser nulo")
-    private String registration;
+public class UserUpdateDTO {
+    @NotNull(message = "O id do usuário não pode ser nullo")
+    private Long id;
     private String name;
     private String role;
-    @NotNull(message = "O e-mail do usuário não pode ser nulo")
     private String email;
     private String password;
 
-    public UserCreateDTO() {
+    public UserUpdateDTO() {
     }
 
-    public UserCreateDTO(String registration, String name, String role, String email, String password) {
-        this.registration = registration;
+    public UserUpdateDTO(Long id, String name, String role, String email, String password) {
+        this.id = id;
         this.name = name;
         this.role = role;
         this.email = email;
         this.password = password;
     }
 
-    public String getRegistration() {
-        return registration;
+    public Long getId() {
+        return id;
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

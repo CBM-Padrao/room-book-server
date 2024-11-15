@@ -9,7 +9,6 @@ public class RoomMapper {
     public static Room toEntity(RoomCreateDTO roomCreateDTO) {
         Room room = new Room();
         room.setName(roomCreateDTO.getName());
-        room.setDisabledUntil(roomCreateDTO.getDisabledUntil());
         return room;
     }
 

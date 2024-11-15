@@ -2,6 +2,7 @@ package com.project.roombook.service;
 
 import com.project.roombook.dto.UserCreateDTO;
 import com.project.roombook.dto.UserResponseDTO;
+import com.project.roombook.dto.UserUpdateDTO;
 import com.project.roombook.entity.User;
 import com.project.roombook.exceptions.UserAlreadyExistsException;
 import com.project.roombook.mapper.UserMapper;
@@ -11,7 +12,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -35,8 +38,59 @@ public class UserService {
         User user = UserMapper.toEntity(userCreateDTO);
         String encodedPassword = PasswordUtils.hashPassword(userCreateDTO.getPassword());
         user.setPassword(encodedPassword);
-        user.setCreatedAt(new Date());
         userRepository.save(user);
         return UserMapper.toResponseDTO(user);
+    }
+
+    @Transactional
+    public UserResponseDTO updateUser(UserUpdateDTO userUpdateDTO) {
+        User user = userRepository.findById(userUpdateDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        if (userUpdateDTO.getName() != null) {
+            user.setName(userUpdateDTO.getName());
+        }
+
+        if (userUpdateDTO.getRole() != null) {
+            user.setRole(userUpdateDTO.getRole());
+        }
+
+        if (userUpdateDTO.getEmail() != null) {
+            if (userRepository.existsByEmailAndIdNot(userUpdateDTO.getEmail(), userUpdateDTO.getId())) {
+                throw new UserAlreadyExistsException("O e-mail já está em uso. Por favor, informe outro.");
+            }
+            user.setEmail(userUpdateDTO.getEmail());
+        }
+
+        if (userUpdateDTO.getPassword() != null) {
+            String encodedPassword = PasswordUtils.hashPassword(userUpdateDTO.getPassword());
+            user.setPassword(encodedPassword);
+        }
+
+        userRepository.save(user);
+        return UserMapper.toResponseDTO(user);
+    }
+
+    @Transactional
+    public UserResponseDTO deleteUser(Long id) {
+        User user = userRepository.findByIdAndIsDeletedFalse(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        user.setDeleted(true);
+        userRepository.save(user);
+        return UserMapper.toResponseDTO(user);
+    }
+
+    public UserResponseDTO getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrada"));
+        return UserMapper.toResponseDTO(user);
+    }
+
+    public List<UserResponseDTO> getAllUsers() {
+        List<User> users = userRepository.findByIsDeletedFalse();
+        return users.stream()
+                .map(UserMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 }

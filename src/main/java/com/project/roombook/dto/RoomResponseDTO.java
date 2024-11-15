@@ -1,8 +1,11 @@
 package com.project.roombook.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
 public class RoomResponseDTO {
+    @NotNull(message = "O id da sala não pode ser nullo")
     private Long id;
     private String name;
     private Date disabledUntil;

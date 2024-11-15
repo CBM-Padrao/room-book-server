@@ -7,6 +7,7 @@ import com.project.roombook.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,13 +25,13 @@ public class RoomController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createRoom(@RequestBody RoomCreateDTO roomCreateDTO) {
+    public ResponseEntity<?> createRoom(@Validated @RequestBody RoomCreateDTO roomCreateDTO) {
         RoomResponseDTO roomResponseDTO = roomService.createRoom(roomCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(roomResponseDTO);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateRoom(@RequestBody RoomUpdateDTO roomUpdateDTO) {
+    public ResponseEntity<?> updateRoom(@Validated @RequestBody RoomUpdateDTO roomUpdateDTO) {
         RoomResponseDTO roomResponseDTO = roomService.updateRoom(roomUpdateDTO);
         return ResponseEntity.ok(roomResponseDTO);
     }
