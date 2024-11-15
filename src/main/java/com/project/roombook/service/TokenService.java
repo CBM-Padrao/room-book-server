@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TokenService {
 
     @Value("${api.security.token.secret}")
@@ -34,7 +36,7 @@ public class TokenService {
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                     .withIssuer("autho.api")
+                     .withIssuer("auth.api")
                      .build()
                      .verify(token)
                      .getSubject();
