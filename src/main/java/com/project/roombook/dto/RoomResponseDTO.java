@@ -1,38 +1,31 @@
-package com.project.roombook.entity;
-
-import jakarta.persistence.*;
+package com.project.roombook.dto;
 
 import java.util.Date;
 
-@Entity(name = "rooms")
-public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RoomResponseDTO {
     private Long id;
     private String name;
     private Date disabledUntil;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    private Boolean isDeleted = false;
-    @PrePersist
-    protected void onCreate() {
-        createdAt = new Date();
+    public RoomResponseDTO() {
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = new Date();
-    }
-    public void setId(Long id) {
+    public RoomResponseDTO(Long id, String name, Date disabledUntil, Date createdAt, Date updatedAt) {
         this.id = id;
+        this.name = name;
+        this.disabledUntil = disabledUntil;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -42,7 +35,6 @@ public class Room {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Date getDisabledUntil() {
         return disabledUntil;
@@ -66,13 +58,5 @@ public class Room {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
     }
 }
