@@ -23,21 +23,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserCreateDTO userCreateDTO) {
-        try {
-            UserResponseDTO userResponseDTO = userService.createUser(userCreateDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
-        } catch (UserAlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
-                    "error", "Usuário já existe",
-                    "message", e.getMessage()
-            ));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                    "error", "Erro interno",
-                    "message", "Erro ao salvar usuário: " + e.getMessage()
-            ));
-        }
+        UserResponseDTO userResponseDTO = userService.createUser(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
 }

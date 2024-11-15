@@ -21,10 +21,23 @@ public class User implements UserDetails{
     private String registration;
     private String name;  
     private String role;
+    @Column(unique = true)
     private String email;
     private String password;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    private Boolean isDeleted = false;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -101,6 +114,13 @@ public class User implements UserDetails{
     @Override
     public String getUsername() {
         return name;
+    }
         
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

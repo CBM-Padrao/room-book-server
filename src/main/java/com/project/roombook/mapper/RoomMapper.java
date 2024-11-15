@@ -1,26 +1,25 @@
 package com.project.roombook.mapper;
 
 
-import com.project.roombook.dto.RoomDTO;
+import com.project.roombook.dto.RoomCreateDTO;
+import com.project.roombook.dto.RoomResponseDTO;
 import com.project.roombook.entity.Room;
 
 public class RoomMapper {
-    public static Room toEntity(RoomDTO roomDTO) {
+    public static Room toEntity(RoomCreateDTO roomCreateDTO) {
         Room room = new Room();
-        room.setName(roomDTO.getName());
-        room.setStartSchedulingAt(roomDTO.getStartSchedulingAt());
-        room.setEndSchedulingAt(roomDTO.getEndSchedulingAt());
-        room.setDisabledUntil(roomDTO.getDisabledUntil());
+        room.setName(roomCreateDTO.getName());
+        room.setDisabledUntil(roomCreateDTO.getDisabledUntil());
         return room;
     }
 
-    public static RoomDTO toDTO(Room room) {
-        return new RoomDTO(
+    public static RoomResponseDTO toResponseDTO(Room room) {
+        return new RoomResponseDTO(
                 room.getId(),
                 room.getName(),
-                room.getStartSchedulingAt(),
-                room.getEndSchedulingAt(),
-                room.getDisabledUntil()
+                room.getDisabledUntil(),
+                room.getCreatedAt(),
+                room.getUpdatedAt()
         );
     }
 }

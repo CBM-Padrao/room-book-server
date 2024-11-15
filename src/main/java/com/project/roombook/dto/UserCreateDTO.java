@@ -1,5 +1,6 @@
 package com.project.roombook.dto;
 
+
 public class UserCreateDTO {
     private String registration;
     private String name;
