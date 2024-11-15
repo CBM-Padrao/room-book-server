@@ -21,12 +21,12 @@ public class TokenService {
     public String generateToken(String registration){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            String token = JWT.create()
+
+            return JWT.create()
                            .withIssuer("auth.api")
                            .withSubject(registration)
                            .withExpiresAt(genExpirationDate())
                            .sign(algorithm);
-            return token;
         } catch (Exception exception){
             return null;
         }
@@ -46,6 +46,6 @@ public class TokenService {
     }
 
     private Instant genExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-3:00"));
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
     }
 }
