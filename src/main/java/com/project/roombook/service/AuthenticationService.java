@@ -6,6 +6,7 @@ import com.project.roombook.entity.User;
 import com.project.roombook.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +35,7 @@ public class AuthenticationService {
         }
 
         var token = tokenService.generateToken(authenticationDTO.registration());
+
         if (token == null) {
             throw new RuntimeException("Falha na autenticação!"); //TODO alterar
         }

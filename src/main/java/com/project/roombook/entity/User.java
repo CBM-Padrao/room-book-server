@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -107,8 +108,17 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == "ADMIN") return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("GESTOR"), new SimpleGrantedAuthority("FUNCIONARIO"));
-        else return List.of( new SimpleGrantedAuthority("GESTOR"), new SimpleGrantedAuthority("FUNCIONARIO"));
+        if (Objects.equals(this.role, "ADMIN"))
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_GESTOR"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        else if (Objects.equals(this.role, "GESTOR")) {
+            return List.of( new SimpleGrantedAuthority("ROLE_GESTOR"), new SimpleGrantedAuthority("ROLE_USER"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
     }
 
     @Override
