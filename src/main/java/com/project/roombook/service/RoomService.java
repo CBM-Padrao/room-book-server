@@ -64,7 +64,7 @@ public class RoomService {
     }
 
     public List<RoomResponseDTO> getAllRooms() {
-        List<Room> rooms = roomRepository.findAll();
+        List<Room> rooms = roomRepository.findByIsDeletedFalse();
         return rooms.stream()
                 .map(RoomMapper::toResponseDTO)
                 .collect(Collectors.toList());
