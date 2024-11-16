@@ -18,8 +18,9 @@ public class BookingResponseDTO {
     public BookingResponseDTO() {
     }
 
-    public BookingResponseDTO(RoomResponseDTO room, UserResponseDTO user, LocalDateTime startTime, LocalDateTime endTime,
-                              List<UserResponseDTO> participants) {
+    public BookingResponseDTO(Long id, RoomResponseDTO room, UserResponseDTO user, LocalDateTime startTime,
+                              LocalDateTime endTime, List<UserResponseDTO> participants) {
+        this.id = id;
         this.room = room;
         this.user = user;
         this.startTime = startTime;

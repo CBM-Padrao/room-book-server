@@ -30,6 +30,7 @@ public class BookingMapper {
                 .collect(Collectors.toList());
 
         return new BookingResponseDTO(
+                booking.getId(),
                 roomResponseDTO,
                 userResponseDTO,
                 booking.getStartTime(),
