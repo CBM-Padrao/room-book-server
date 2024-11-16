@@ -62,7 +62,7 @@ public class UserService {
             user.setEmail(userUpdateDTO.getEmail());
         }
 
-        if (userUpdateDTO.getPassword() != null) {
+        if (userUpdateDTO.getPassword() != null && !userUpdateDTO.getPassword().isEmpty()) {
             String encodedPassword = PasswordUtils.hashPassword(userUpdateDTO.getPassword());
             user.setPassword(encodedPassword);
         }
