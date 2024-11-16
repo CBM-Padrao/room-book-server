@@ -2,7 +2,9 @@ package com.project.roombook.service;
 
 import com.project.roombook.dto.AuthenticationDTO;
 import com.project.roombook.dto.LoginResponseDTO;
+import com.project.roombook.dto.UserResponseDTO;
 import com.project.roombook.entity.User;
+import com.project.roombook.mapper.UserMapper;
 import com.project.roombook.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +42,6 @@ public class AuthenticationService {
             throw new RuntimeException("Falha na autenticação!"); //TODO alterar
         }
 
-        return new LoginResponseDTO(token);
+        return new LoginResponseDTO(token, UserMapper.toResponseDTO((User) user));
     }
-    
 }
