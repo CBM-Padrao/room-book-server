@@ -9,18 +9,10 @@ import com.project.roombook.entity.Room;
 import com.project.roombook.entity.User;
 
 public class BookingMapper {
-    public static Booking toEntity(BookingCreateDTO bookingCreateDTO) {
+    public static Booking toEntity(BookingCreateDTO bookingCreateDTO, Room room, User user) {
         Booking booking = new Booking();
-        if (bookingCreateDTO.getRoom() != null) {
-            Room room = new Room();
-            room.setId(bookingCreateDTO.getRoom().getId());
-            booking.setRoom(room);
-        }
-        if (bookingCreateDTO.getUser() != null) {
-            User user = new User();
-            user.setId(bookingCreateDTO.getUser().getId());
-            booking.setUser(user);
-        }
+        booking.setRoom(room);
+        booking.setUser(user);
         booking.setStartTime(bookingCreateDTO.getStartTime());
         booking.setEndTime(bookingCreateDTO.getEndTime());
         return booking;

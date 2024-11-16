@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 public class BookingCreateDTO {
-    @NotNull(message = "O sala da reserva não pode ser nula")
-    private RoomResponseDTO room;
-    @NotNull(message = "O usuário da reserva não pode ser nulo")
-    private UserResponseDTO user;
+    @NotNull(message = "O ID da sala não pode ser nula")
+    private Long roomId;
+    @NotNull(message = "O ID do usuário não pode ser nulo")
+    private Long userId;
     @NotNull(message = "A dataInicio da reserva não pode ser nulo")
     private Date startTime;
     @NotNull(message = "A dataFinal da reserva pode ser nulo")
@@ -17,27 +17,27 @@ public class BookingCreateDTO {
     public BookingCreateDTO() {
     }
 
-    public BookingCreateDTO(RoomResponseDTO room, UserResponseDTO user, Date startTime, Date endTime) {
-        this.room = room;
-        this.user = user;
+    public BookingCreateDTO(Long roomId, Long userId, Date startTime, Date endTime) {
+        this.roomId = roomId;
+        this.userId = userId;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public RoomResponseDTO getRoom() {
-        return room;
+    public Long getRoomId() {
+        return roomId;
     }
 
-    public void setRoom(RoomResponseDTO room) {
-        this.room = room;
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
-    public UserResponseDTO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserResponseDTO user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Date getStartTime() {

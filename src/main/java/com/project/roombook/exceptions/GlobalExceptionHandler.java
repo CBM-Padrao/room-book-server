@@ -35,8 +35,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BookingAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleBookingAlreadyExistsException (BookingAlreadyExistsException e) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
-                "error", "Sala já reservada",
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(Map.of(
+                "error", "Reserva conflitante",
+                "message", e.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException (IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                "error", "Argumento inválido",
                 "message", e.getMessage()
         ));
     }
