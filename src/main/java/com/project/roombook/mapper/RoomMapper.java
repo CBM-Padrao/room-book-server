@@ -16,7 +16,6 @@ public class RoomMapper {
         return new RoomResponseDTO(
                 room.getId(),
                 room.getName(),
-                room.getDisabledUntil(),
                 room.getCreatedAt(),
                 room.getUpdatedAt()
         );

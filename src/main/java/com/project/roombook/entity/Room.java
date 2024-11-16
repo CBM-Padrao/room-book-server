@@ -10,7 +10,6 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Date disabledUntil;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
@@ -43,14 +42,6 @@ public class Room {
         this.name = name;
     }
 
-
-    public Date getDisabledUntil() {
-        return disabledUntil;
-    }
-
-    public void setDisabledUntil(Date disabledUntil) {
-        this.disabledUntil = disabledUntil;
-    }
 
     public Date getCreatedAt() {
         return createdAt;

@@ -39,10 +39,6 @@ public class RoomService {
             room.setName(roomUpdateDTO.getName());
         }
 
-        if (roomUpdateDTO.getDisabledUntil() != null) {
-            room.setDisabledUntil(roomUpdateDTO.getDisabledUntil());
-        }
-
         Room updatedRoom = roomRepository.save(room);
         return RoomMapper.toResponseDTO(updatedRoom);
     }

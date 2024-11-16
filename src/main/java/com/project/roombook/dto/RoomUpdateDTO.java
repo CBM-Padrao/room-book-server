@@ -5,7 +5,6 @@ import java.util.Date;
 public class RoomUpdateDTO {
     private Long id;
     private String name;
-    private Date disabledUntil;
 
     public RoomUpdateDTO() {
     }
@@ -13,7 +12,6 @@ public class RoomUpdateDTO {
     public RoomUpdateDTO(Long id, String name, Date disabledUntil) {
         this.id = id;
         this.name = name;
-        this.disabledUntil = disabledUntil;
     }
 
     public Long getId() {
@@ -30,13 +28,5 @@ public class RoomUpdateDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getDisabledUntil() {
-        return disabledUntil;
-    }
-
-    public void setDisabledUntil(Date disabledUntil) {
-        this.disabledUntil = disabledUntil;
     }
 }

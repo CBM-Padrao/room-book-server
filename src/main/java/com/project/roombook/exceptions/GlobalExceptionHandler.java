@@ -32,4 +32,12 @@ public class GlobalExceptionHandler {
                 "message", e.getMessage()
         ));
     }
+
+    @ExceptionHandler(BookingAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleBookingAlreadyExistsException (BookingAlreadyExistsException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+                "error", "Sala já reservada",
+                "message", e.getMessage()
+        ));
+    }
 }
