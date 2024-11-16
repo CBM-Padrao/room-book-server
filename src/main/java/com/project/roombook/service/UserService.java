@@ -87,8 +87,8 @@ public class UserService {
         return UserMapper.toResponseDTO(user);
     }
 
-    public List<UserResponseDTO> getAllUsers() {
-        List<User> users = userRepository.findByIsDeletedFalse();
+    public List<UserResponseDTO> getAllUsers(Long id) {
+        List<User> users = userRepository.findByIsDeletedFalseAndIdNot(id);
         return users.stream()
                 .map(UserMapper::toResponseDTO)
                 .collect(Collectors.toList());

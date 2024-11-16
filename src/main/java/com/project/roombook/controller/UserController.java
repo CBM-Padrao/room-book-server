@@ -1,10 +1,13 @@
 package com.project.roombook.controller;
 
 import com.project.roombook.dto.*;
+import com.project.roombook.entity.User;
 import com.project.roombook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +51,12 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
-        List<UserResponseDTO> users = userService.getAllUsers();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof User)) {
+             throw new RuntimeException("Não foi possível encontrar o id");
+        }
+
+        List<UserResponseDTO> users = userService.getAllUsers(((User) authentication.getPrincipal()).getId());
         return ResponseEntity.ok(users);
     }
 }
