@@ -1,22 +1,22 @@
 package com.project.roombook.service;
 
-import com.project.roombook.dto.*;
+import com.project.roombook.dto.BookingCreateDTO;
+import com.project.roombook.dto.BookingFilterDTO;
+import com.project.roombook.dto.BookingResponseDTO;
+import com.project.roombook.dto.BookingUpdateDTO;
 import com.project.roombook.entity.Booking;
 import com.project.roombook.entity.Room;
 import com.project.roombook.entity.User;
 import com.project.roombook.exceptions.BookingAlreadyExistsException;
 import com.project.roombook.mapper.BookingMapper;
-import com.project.roombook.mapper.RoomMapper;
 import com.project.roombook.repository.BookingRepository;
 import com.project.roombook.repository.RoomRepository;
 import com.project.roombook.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +54,12 @@ public class BookingService {
         }
 
         Booking booking = BookingMapper.toEntity(bookingCreateDTO, room, user);
+
+        if (bookingCreateDTO.getParticipantIds() != null && !bookingCreateDTO.getParticipantIds().isEmpty()) {
+            List<User> participants = userRepository.findAllById(bookingCreateDTO.getParticipantIds());
+            booking.setParticipants(participants);
+        }
+
         bookingRepository.save(booking);
         return BookingMapper.toResponseDTO(booking);
     }

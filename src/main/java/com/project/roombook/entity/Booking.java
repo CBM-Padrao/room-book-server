@@ -2,7 +2,9 @@ package com.project.roombook.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "bookings")
 public class Booking {
@@ -26,6 +28,14 @@ public class Booking {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_time", nullable = false)
     private Date endTime;
+
+    @ManyToMany
+    @JoinTable(
+            name = "booking_participants",
+            joinColumns = @JoinColumn(name = "booking_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> participants = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -106,5 +116,13 @@ public class Booking {
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
     }
 }

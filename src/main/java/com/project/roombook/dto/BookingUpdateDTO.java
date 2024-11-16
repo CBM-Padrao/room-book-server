@@ -3,6 +3,7 @@ package com.project.roombook.dto;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
+import java.util.List;
 
 public class BookingUpdateDTO {
     @NotNull(message = "O id do usuário não pode ser nullo")
@@ -13,15 +14,17 @@ public class BookingUpdateDTO {
     private Date startTime;
 
     private Date endTime;
+    private List<Long> participantIds;
 
     public BookingUpdateDTO() {
     }
 
-    public BookingUpdateDTO(Long id, Long roomId, Date startTime, Date endTime) {
+    public BookingUpdateDTO(Long id, Long roomId, Date startTime, Date endTime, List<Long> participantIds) {
         this.id = id;
         this.roomId = roomId;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.participantIds = participantIds;
     }
 
     public Long getId() {
@@ -54,5 +57,13 @@ public class BookingUpdateDTO {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public List<Long> getParticipantIds() {
+        return participantIds;
+    }
+
+    public void setParticipantIds(List<Long> participantIds) {
+        this.participantIds = participantIds;
     }
 }

@@ -1,6 +1,7 @@
 package com.project.roombook.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class BookingResponseDTO {
     private Long id;
@@ -12,15 +13,17 @@ public class BookingResponseDTO {
     private Date startTime;
 
     private Date endTime;
+    private List<UserResponseDTO> participants;
 
     public BookingResponseDTO() {
     }
 
-    public BookingResponseDTO(RoomResponseDTO room, UserResponseDTO user, Date startTime, Date endTime) {
+    public BookingResponseDTO(RoomResponseDTO room, UserResponseDTO user, Date startTime, Date endTime, List<UserResponseDTO> participants) {
         this.room = room;
         this.user = user;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.participants = participants;
     }
 
     public Long getId() {
@@ -61,5 +64,13 @@ public class BookingResponseDTO {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public List<UserResponseDTO> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<UserResponseDTO> participants) {
+        this.participants = participants;
     }
 }

@@ -8,6 +8,9 @@ import com.project.roombook.entity.Booking;
 import com.project.roombook.entity.Room;
 import com.project.roombook.entity.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class BookingMapper {
     public static Booking toEntity(BookingCreateDTO bookingCreateDTO, Room room, User user) {
         Booking booking = new Booking();
@@ -21,12 +24,17 @@ public class BookingMapper {
     public static BookingResponseDTO toResponseDTO(Booking booking) {
         RoomResponseDTO roomResponseDTO = RoomMapper.toResponseDTO(booking.getRoom());
         UserResponseDTO userResponseDTO = UserMapper.toResponseDTO(booking.getUser());
+        List<UserResponseDTO> participants = booking.getParticipants()
+                .stream()
+                .map(UserMapper::toResponseDTO)
+                .collect(Collectors.toList());
 
         return new BookingResponseDTO(
                 roomResponseDTO,
                 userResponseDTO,
                 booking.getStartTime(),
-                booking.getEndTime()
+                booking.getEndTime(),
+                participants
         );
     }
 }
