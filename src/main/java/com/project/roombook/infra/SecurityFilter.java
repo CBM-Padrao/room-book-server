@@ -1,4 +1,4 @@
-package com.project.roombook.Infra;
+package com.project.roombook.infra;
 
 import java.io.IOException;
 

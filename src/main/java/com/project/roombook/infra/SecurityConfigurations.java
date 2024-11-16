@@ -1,4 +1,4 @@
-package com.project.roombook.Infra;
+package com.project.roombook.infra;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
