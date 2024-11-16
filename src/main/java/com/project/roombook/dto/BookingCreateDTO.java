@@ -2,7 +2,7 @@ package com.project.roombook.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookingCreateDTO {
@@ -11,15 +11,15 @@ public class BookingCreateDTO {
     @NotNull(message = "O ID do usuário não pode ser nulo")
     private Long userId;
     @NotNull(message = "A dataInicio da reserva não pode ser nulo")
-    private Date startTime;
+    private LocalDateTime startTime;
     @NotNull(message = "A dataFinal da reserva pode ser nulo")
-    private Date endTime;
+    private LocalDateTime endTime;
     private List<Long> participantIds;
 
     public BookingCreateDTO() {
     }
 
-    public BookingCreateDTO(Long roomId, Long userId, Date startTime, Date endTime, List<Long> participantIds) {
+    public BookingCreateDTO(Long roomId, Long userId, LocalDateTime startTime, LocalDateTime endTime, List<Long> participantIds) {
         this.roomId = roomId;
         this.userId = userId;
         this.startTime = startTime;
@@ -43,19 +43,19 @@ public class BookingCreateDTO {
         this.userId = userId;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

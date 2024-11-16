@@ -44,7 +44,7 @@ public class BookingService {
                 .orElseThrow(() -> new RuntimeException("Usuário informado para reserva não encontrado"));
 
         if (bookingCreateDTO.getStartTime() != null && bookingCreateDTO.getEndTime() != null &&
-                bookingCreateDTO.getStartTime().toInstant().isAfter(bookingCreateDTO.getEndTime().toInstant())) {
+                bookingCreateDTO.getStartTime().isAfter(bookingCreateDTO.getEndTime())) {
             throw new IllegalArgumentException("A data de início não pode ser após a data de término.");
         }
 
@@ -84,7 +84,7 @@ public class BookingService {
         }
 
         if (booking.getStartTime() != null && booking.getEndTime() != null &&
-                booking.getStartTime().toInstant().isAfter(booking.getEndTime().toInstant())) {
+                booking.getStartTime().isAfter(booking.getEndTime())) {
             throw new IllegalArgumentException("A data de início não pode ser após a data de término.");
         }
 

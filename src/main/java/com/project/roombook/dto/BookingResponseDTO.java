@@ -1,6 +1,6 @@
 package com.project.roombook.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookingResponseDTO {
@@ -10,15 +10,16 @@ public class BookingResponseDTO {
 
     private UserResponseDTO user;
 
-    private Date startTime;
+    private LocalDateTime startTime;
 
-    private Date endTime;
+    private LocalDateTime endTime;
     private List<UserResponseDTO> participants;
 
     public BookingResponseDTO() {
     }
 
-    public BookingResponseDTO(RoomResponseDTO room, UserResponseDTO user, Date startTime, Date endTime, List<UserResponseDTO> participants) {
+    public BookingResponseDTO(RoomResponseDTO room, UserResponseDTO user, LocalDateTime startTime, LocalDateTime endTime,
+                              List<UserResponseDTO> participants) {
         this.room = room;
         this.user = user;
         this.startTime = startTime;
@@ -50,19 +51,19 @@ public class BookingResponseDTO {
         this.user = user;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

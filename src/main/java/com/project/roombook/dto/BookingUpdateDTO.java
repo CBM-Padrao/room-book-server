@@ -2,6 +2,7 @@ package com.project.roombook.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,15 +12,15 @@ public class BookingUpdateDTO {
 
     private Long roomId;
 
-    private Date startTime;
+    private LocalDateTime startTime;
 
-    private Date endTime;
+    private LocalDateTime endTime;
     private List<Long> participantIds;
 
     public BookingUpdateDTO() {
     }
 
-    public BookingUpdateDTO(Long id, Long roomId, Date startTime, Date endTime, List<Long> participantIds) {
+    public BookingUpdateDTO(Long id, Long roomId, LocalDateTime startTime, LocalDateTime endTime, List<Long> participantIds) {
         this.id = id;
         this.roomId = roomId;
         this.startTime = startTime;
@@ -43,19 +44,19 @@ public class BookingUpdateDTO {
         this.roomId = roomId;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

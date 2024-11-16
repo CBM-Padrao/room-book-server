@@ -1,8 +1,8 @@
 package com.project.roombook.dto;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record BookingFilterDTO(Long roomId, Long userId,
-                               Date startTime, Date endTime) {
+                               LocalDateTime startTime, LocalDateTime endTime) {
 }

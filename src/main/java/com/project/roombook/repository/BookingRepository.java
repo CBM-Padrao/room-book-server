@@ -4,18 +4,19 @@ import com.project.roombook.entity.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long>, JpaSpecificationExecutor<Booking> {
     boolean existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
-            Long roomId, Date endTime, Date startTime);
+            Long roomId, LocalDateTime endTime, LocalDateTime startTime);
 
     boolean existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIdNot(
-            Long roomId, Date endTime, Date startTime, Long id);
+            Long roomId, LocalDateTime endTime, LocalDateTime startTime, Long id);
 
     List<Booking> findByIsDeletedFalse();
 
     Optional<Booking> findByIdAndIsDeletedFalse(Long id);
+    List<Booking> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
 }
