@@ -10,6 +10,8 @@ public class BookingResponseDTO {
 
     private UserResponseDTO user;
 
+    private String title;
+
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
@@ -18,11 +20,12 @@ public class BookingResponseDTO {
     public BookingResponseDTO() {
     }
 
-    public BookingResponseDTO(Long id, RoomResponseDTO room, UserResponseDTO user, LocalDateTime startTime,
+    public BookingResponseDTO(Long id, RoomResponseDTO room, UserResponseDTO user, String title, LocalDateTime startTime,
                               LocalDateTime endTime, List<UserResponseDTO> participants) {
         this.id = id;
         this.room = room;
         this.user = user;
+        this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.participants = participants;
@@ -50,6 +53,14 @@ public class BookingResponseDTO {
 
     public void setUser(UserResponseDTO user) {
         this.user = user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDateTime getStartTime() {

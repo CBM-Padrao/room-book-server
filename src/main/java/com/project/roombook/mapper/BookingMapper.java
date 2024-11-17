@@ -16,6 +16,7 @@ public class BookingMapper {
         Booking booking = new Booking();
         booking.setRoom(room);
         booking.setUser(user);
+        booking.setTitle(bookingCreateDTO.getTitle());
         booking.setStartTime(bookingCreateDTO.getStartTime());
         booking.setEndTime(bookingCreateDTO.getEndTime());
         return booking;
@@ -33,6 +34,7 @@ public class BookingMapper {
                 booking.getId(),
                 roomResponseDTO,
                 userResponseDTO,
+                booking.getTitle(),
                 booking.getStartTime(),
                 booking.getEndTime(),
                 participants

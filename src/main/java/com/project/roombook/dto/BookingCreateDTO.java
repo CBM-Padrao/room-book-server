@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookingCreateDTO {
+    @NotNull(message = "O título da reserva não pode ser nula")
+    private String title;
     @NotNull(message = "O ID da sala não pode ser nula")
     private Long roomId;
     @NotNull(message = "O ID do usuário não pode ser nulo")
@@ -19,12 +21,21 @@ public class BookingCreateDTO {
     public BookingCreateDTO() {
     }
 
-    public BookingCreateDTO(Long roomId, Long userId, LocalDateTime startTime, LocalDateTime endTime, List<Long> participantIds) {
+    public BookingCreateDTO(String title, Long roomId, Long userId, LocalDateTime startTime, LocalDateTime endTime, List<Long> participantIds) {
+        this.title = title;
         this.roomId = roomId;
         this.userId = userId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.participantIds = participantIds;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getRoomId() {

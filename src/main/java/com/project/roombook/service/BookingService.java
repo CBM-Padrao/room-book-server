@@ -75,6 +75,10 @@ public class BookingService {
             booking.setRoom(room);
         }
 
+        if (bookingUpdateDTO.getTitle() != null && !bookingUpdateDTO.getTitle().isEmpty()) {
+            booking.setTitle(bookingUpdateDTO.getTitle());
+        }
+
         if (bookingUpdateDTO.getStartTime() != null) {
             booking.setStartTime(bookingUpdateDTO.getStartTime());
         }
@@ -91,6 +95,11 @@ public class BookingService {
         if (bookingRepository.existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIdNot(
                 booking.getRoom().getId(), booking.getEndTime(), booking.getStartTime(), booking.getId())) {
             throw new BookingAlreadyExistsException("Já existe uma reserva para a sala durante este período");
+        }
+
+        if (bookingUpdateDTO.getParticipantIds() != null && !bookingUpdateDTO.getParticipantIds().isEmpty()) {
+            List<User> participants = userRepository.findAllById(bookingUpdateDTO.getParticipantIds());
+            booking.setParticipants(participants);
         }
 
         bookingRepository.save(booking);
