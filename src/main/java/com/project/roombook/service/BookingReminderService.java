@@ -44,7 +44,7 @@ public class BookingReminderService {
     }
 
     private void sendReminderEmail(String email, Booking booking) {
-        String subject = "Lembrete de Reunião: " + booking.getRoom().getName();
+        String subject = "Lembrete de Reunião: " + booking.getTitle();
         String text = "Olá,\n\nLembrete que sua reunião na sala " + booking.getRoom().getName() +
                 " começará em 1 hora.\n" +
                 "Horário: " + booking.getStartTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
