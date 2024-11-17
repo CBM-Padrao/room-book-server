@@ -48,7 +48,7 @@ public class BookingService {
             throw new IllegalArgumentException("A data de início não pode ser após a data de término.");
         }
 
-        if (bookingRepository.existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+        if (bookingRepository.existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIsDeletedFalse(
                 bookingCreateDTO.getRoomId(), bookingCreateDTO.getEndTime(), bookingCreateDTO.getStartTime())) {
             throw new BookingAlreadyExistsException("Já existe uma reserva para a sala durante este período");
         }
@@ -92,7 +92,7 @@ public class BookingService {
             throw new IllegalArgumentException("A data de início não pode ser após a data de término.");
         }
 
-        if (bookingRepository.existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIdNot(
+        if (bookingRepository.existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIdNotAndIsDeletedFalse(
                 booking.getRoom().getId(), booking.getEndTime(), booking.getStartTime(), booking.getId())) {
             throw new BookingAlreadyExistsException("Já existe uma reserva para a sala durante este período");
         }

@@ -50,7 +50,7 @@ public class BookingReminderService {
         String text = "Olá, " + name +
                 "\n\nLembrete que sua reunião na sala " + booking.getRoom().getName() +
                 " começará em 1 hora.\n" +
-                "Horário: " + booking.getStartTime().atZone(ZoneId.of("-03:00")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
+                "Horário: " + booking.getStartTime().atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.of("America/Sao_Paulo")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
                 "\n\nAtenciosamente,\nEquipe de Reservas";
 
         emailService.sendEmail(email, subject, text);

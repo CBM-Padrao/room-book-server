@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long>, JpaSpecificationExecutor<Booking> {
-    boolean existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+    boolean existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIsDeletedFalse(
             Long roomId, LocalDateTime endTime, LocalDateTime startTime);
 
-    boolean existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIdNot(
+    boolean existsByRoomIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndIdNotAndIsDeletedFalse(
             Long roomId, LocalDateTime endTime, LocalDateTime startTime, Long id);
 
     List<Booking> findByIsDeletedFalse();
