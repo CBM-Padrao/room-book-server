@@ -125,6 +125,9 @@ public class BookingService {
     public List<BookingResponseDTO> getAllBookings(BookingFilterDTO bookingFilterDTO) {
         Specification<Booking> spec = Specification.where(null);
 
+        spec = spec.and((root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("isDeleted"), false));
+
         if (bookingFilterDTO != null) {
             if (bookingFilterDTO.roomId() != null) {
                 spec = spec.and((root, query, criteriaBuilder) ->
