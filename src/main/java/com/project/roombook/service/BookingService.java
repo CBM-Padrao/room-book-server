@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +45,10 @@ public class BookingService {
 
         User user = userRepository.findById(bookingCreateDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("Usuário informado para reserva não encontrado"));
+
+        if (bookingCreateDTO.getStartTime() != null && bookingCreateDTO.getStartTime().isBefore(LocalDateTime.now(ZoneOffset.UTC))) {
+            throw new IllegalArgumentException("A data de início não pode ser anterior a data atual.");
+        }
 
         if (bookingCreateDTO.getStartTime() != null && bookingCreateDTO.getEndTime() != null &&
                 bookingCreateDTO.getStartTime().isAfter(bookingCreateDTO.getEndTime())) {
@@ -86,6 +92,10 @@ public class BookingService {
 
         if (bookingUpdateDTO.getEndTime() != null) {
             booking.setEndTime(bookingUpdateDTO.getEndTime());
+        }
+
+        if (booking.getStartTime() != null && booking.getStartTime().isBefore(LocalDateTime.now(ZoneOffset.UTC))) {
+            throw new IllegalArgumentException("A data de início não pode ser anterior a data atual.");
         }
 
         if (booking.getStartTime() != null && booking.getEndTime() != null &&
