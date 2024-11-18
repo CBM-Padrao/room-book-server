@@ -2,6 +2,7 @@ package com.project.roombook.controller;
 
 import com.project.roombook.dto.*;
 import com.project.roombook.entity.User;
+import com.project.roombook.exceptions.NotFoundException;
 import com.project.roombook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,7 +54,7 @@ public class UserController {
     public ResponseEntity<?> getAllUsers() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof User)) {
-             throw new RuntimeException("Não foi possível encontrar o id");
+             throw new NotFoundException("Não foi possível encontrar o id");
         }
 
         List<UserResponseDTO> users = userService.getAllUsers(((User) authentication.getPrincipal()).getId());

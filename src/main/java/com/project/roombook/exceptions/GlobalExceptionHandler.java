@@ -17,8 +17,8 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Map<String, String>> handleNotFoundException(RuntimeException e) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNotFoundException(NotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
                 "error", "Não encontrado",
                 "message", e.getMessage()

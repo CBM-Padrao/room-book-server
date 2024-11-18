@@ -4,6 +4,7 @@ import com.project.roombook.dto.UserCreateDTO;
 import com.project.roombook.dto.UserResponseDTO;
 import com.project.roombook.dto.UserUpdateDTO;
 import com.project.roombook.entity.User;
+import com.project.roombook.exceptions.NotFoundException;
 import com.project.roombook.exceptions.UserAlreadyExistsException;
 import com.project.roombook.mapper.UserMapper;
 import com.project.roombook.repository.UserRepository;
@@ -45,7 +46,7 @@ public class UserService {
     @Transactional
     public UserResponseDTO updateUser(UserUpdateDTO userUpdateDTO) {
         User user = userRepository.findById(userUpdateDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
         if (userUpdateDTO.getName() != null) {
             user.setName(userUpdateDTO.getName());
@@ -74,7 +75,7 @@ public class UserService {
     @Transactional
     public UserResponseDTO deleteUser(Long id) {
         User user = userRepository.findByIdAndIsDeletedFalse(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
         user.setDeleted(true);
         userRepository.save(user);
@@ -83,7 +84,7 @@ public class UserService {
 
     public UserResponseDTO getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
         return UserMapper.toResponseDTO(user);
     }
 

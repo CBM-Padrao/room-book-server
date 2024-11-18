@@ -4,6 +4,7 @@ import com.project.roombook.dto.RoomCreateDTO;
 import com.project.roombook.dto.RoomResponseDTO;
 import com.project.roombook.dto.RoomUpdateDTO;
 import com.project.roombook.entity.Room;
+import com.project.roombook.exceptions.NotFoundException;
 import com.project.roombook.mapper.RoomMapper;
 import com.project.roombook.repository.RoomRepository;
 import jakarta.transaction.Transactional;
@@ -33,7 +34,7 @@ public class RoomService {
     @Transactional
     public RoomResponseDTO updateRoom(RoomUpdateDTO roomUpdateDTO) {
         Room room = roomRepository.findById(roomUpdateDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Sala não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Sala não encontrada"));
 
         if (roomUpdateDTO.getName() != null) {
             room.setName(roomUpdateDTO.getName());
@@ -46,7 +47,7 @@ public class RoomService {
     @Transactional
     public RoomResponseDTO deleteRoom(Long id) {
         Room room = roomRepository.findByIdAndIsDeletedFalse(id)
-                .orElseThrow(() -> new RuntimeException("Sala não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Sala não encontrada"));
 
         room.setDeleted(true);
         roomRepository.save(room);
@@ -55,7 +56,7 @@ public class RoomService {
 
     public RoomResponseDTO getRoomById(Long id) {
         Room room = roomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sala não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Sala não encontrada"));
         return RoomMapper.toResponseDTO(room);
     }
 

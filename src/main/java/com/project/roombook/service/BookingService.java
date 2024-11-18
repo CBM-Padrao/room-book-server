@@ -8,6 +8,7 @@ import com.project.roombook.entity.Booking;
 import com.project.roombook.entity.Room;
 import com.project.roombook.entity.User;
 import com.project.roombook.exceptions.BookingAlreadyExistsException;
+import com.project.roombook.exceptions.NotFoundException;
 import com.project.roombook.mapper.BookingMapper;
 import com.project.roombook.repository.BookingRepository;
 import com.project.roombook.repository.RoomRepository;
@@ -38,10 +39,10 @@ public class BookingService {
     @Transactional
     public BookingResponseDTO createBooking(BookingCreateDTO bookingCreateDTO) {
         Room room = roomRepository.findById(bookingCreateDTO.getRoomId())
-                .orElseThrow(() -> new RuntimeException("Sala informada para reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Sala informada para reserva não encontrada"));
 
         User user = userRepository.findById(bookingCreateDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("Usuário informado para reserva não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário informado para reserva não encontrado"));
 
         if (bookingCreateDTO.getStartTime() != null && bookingCreateDTO.getEndTime() != null &&
                 bookingCreateDTO.getStartTime().isAfter(bookingCreateDTO.getEndTime())) {
@@ -67,11 +68,11 @@ public class BookingService {
     @Transactional
     public BookingResponseDTO updateBooking(BookingUpdateDTO bookingUpdateDTO) {
         Booking booking = bookingRepository.findById(bookingUpdateDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
 
         if (bookingUpdateDTO.getRoomId() != null) {
             Room room = roomRepository.findById(bookingUpdateDTO.getRoomId())
-                    .orElseThrow(() -> new RuntimeException("Sala informada para reserva não encontrada"));
+                    .orElseThrow(() -> new NotFoundException("Sala informada para reserva não encontrada"));
             booking.setRoom(room);
         }
 
@@ -109,7 +110,7 @@ public class BookingService {
     @Transactional
     public BookingResponseDTO deleteBooking(Long id) {
         Booking booking = bookingRepository.findByIdAndIsDeletedFalse(id)
-                .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
 
         booking.setDeleted(true);
         bookingRepository.save(booking);
@@ -118,7 +119,7 @@ public class BookingService {
 
     public BookingResponseDTO getBookingById(Long id) {
         Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
         return BookingMapper.toResponseDTO(booking);
     }
 

@@ -5,6 +5,7 @@ import com.project.roombook.dto.LoginResponseDTO;
 import com.project.roombook.entity.User;
 import com.project.roombook.exceptions.AuthenticationFailureException;
 import com.project.roombook.exceptions.InvalidPasswordException;
+import com.project.roombook.exceptions.NotFoundException;
 import com.project.roombook.mapper.UserMapper;
 import com.project.roombook.repository.UserRepository;
 import com.project.roombook.util.PasswordUtils;
@@ -26,7 +27,7 @@ public class AuthenticationService {
 
     public LoginResponseDTO authenticate(AuthenticationDTO authenticationDTO) {
         UserDetails user = userRepository.findByRegistration(authenticationDTO.registration())
-                .orElseThrow(() -> new RuntimeException("Matrícula não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Matrícula não encontrada"));
 
         if (!PasswordUtils.checkPassword(authenticationDTO.password(), user.getPassword())) {
             throw new InvalidPasswordException("Senha inválida!");
