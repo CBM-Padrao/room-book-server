@@ -1,5 +1,6 @@
 package com.project.roombook.service;
 
+import com.project.roombook.dto.BookingEmailDTO;
 import com.project.roombook.entity.Booking;
 import com.project.roombook.entity.User;
 import com.project.roombook.repository.BookingRepository;
@@ -9,9 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -34,26 +33,28 @@ public class BookingReminderService {
         List<Booking> upcomingBookings = bookingRepository.findByStartTimeBetween(oneHourFromNow.minusMinutes(1), oneHourFromNow);
 
         for (Booking booking : upcomingBookings) {
-            String creatorEmail = booking.getUser().getEmail();
-            sendReminderEmail(creatorEmail, booking, booking.getUser().getName());
+            emailService.sendReminderEmail(new BookingEmailDTO(
+                    booking.getTitle(),
+                    booking.getRoom().getName(),
+                    booking.getStartTime(),
+                    booking.getUser().getName(),
+                    booking.getUser().getEmail()
+            ));
 
             if (booking.getParticipants() != null) {
                 for (User participant : booking.getParticipants()) {
-                    sendReminderEmail(participant.getEmail(), booking, participant.getName());
+                    emailService.sendReminderEmail(new BookingEmailDTO(
+                            booking.getTitle(),
+                            booking.getRoom().getName(),
+                            booking.getStartTime(),
+                            participant.getName(),
+                            participant.getEmail()
+                    ));
                 }
             }
         }
     }
 
-    private void sendReminderEmail(String email, Booking booking, String name) {
-        String subject = "Lembrete de Reunião: " + booking.getTitle();
-        String text = "Olá, " + name +
-                "\n\nLembrete que sua reunião na sala " + booking.getRoom().getName() +
-                " começará em 1 hora.\n" +
-                "Horário: " + booking.getStartTime().atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.of("America/Sao_Paulo")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
-                "\n\nAtenciosamente,\nEquipe de Reservas";
 
-        emailService.sendEmail(email, subject, text);
-    }
 }
 
