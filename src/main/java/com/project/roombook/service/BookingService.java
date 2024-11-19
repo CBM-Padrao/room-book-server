@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,10 +109,12 @@ public class BookingService {
             throw new BookingAlreadyExistsException("Já existe uma reserva para a sala durante este período");
         }
 
-        if (bookingUpdateDTO.getParticipantIds() != null && !bookingUpdateDTO.getParticipantIds().isEmpty()) {
-            List<User> participants = userRepository.findAllById(bookingUpdateDTO.getParticipantIds());
-            booking.setParticipants(participants);
+        if (bookingUpdateDTO.getParticipantIds() == null) {
+            bookingUpdateDTO.setParticipantIds(new ArrayList<>());
         }
+
+        List<User> participants = userRepository.findAllById(bookingUpdateDTO.getParticipantIds());
+        booking.setParticipants(participants);
 
         bookingRepository.save(booking);
         return BookingMapper.toResponseDTO(booking);
